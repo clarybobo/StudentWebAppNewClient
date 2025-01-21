@@ -4,16 +4,6 @@ using StudentWebAppNewClient.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowLocalhost", policy =>
-    {
-        policy.WithOrigins("http://localhost:7170", "http://localhost:7246", "https://studentwebappnewclient.azurewebsites.net") 
-              .AllowAnyHeader() 
-              .WithHeaders(HeaderNames.ContentType, HeaderNames.Authorization, "x-custom-header"); 
-    });
-});
-
 // Add services to the container.
 builder.Services.AddScoped<IStudentService, StudentService>();
 
@@ -27,8 +17,6 @@ builder.Services.AddHttpClient<IStudentService, StudentService>(client =>
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
-
-app.UseCors("AllowLocalHost");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
